@@ -1,0 +1,61 @@
+#lang racket
+
+(require parser-tools/lex
+         (prefix-in : parser-tools/lex-sre))
+
+(define-tokens value-tokens (NUMERO STRING))
+(define-tokens var-tokens (IDENTIFICADOR))
+(define-tokens format-tokens (FINT FFLOAT FDOUBLE FCHAR))
+(define-empty-tokens syntax-tokens
+  (EOF
+   ATRIBUIDOR
+   VIRGULA
+   PVIRGULA
+   OPENP
+   CLOSEP
+   OPENC
+   CLOSEC
+   OPENA
+   CLOSEA
+   ASPAS
+   INT
+   FLOAT
+   CHAR
+   DOUBLE
+   VOID
+   PRINTF
+   SCANF))
+
+(define next-token
+  (lexer-src-pos
+   [(eof) (token-EOF)]
+   [(:+ #\n whitespace)
+    (return-without-pos (next-token input-port))]
+   ["=" (token-ATRIBUIDOR)]
+   [","  (token-VIRGULA)]
+   [";" (token-PVIRGULA)]
+   ["("  (token-OPENP)]
+   [")"  (token-CLOSEP)]
+   ["{"  (token-OPENC)]
+   ["}"  (token-CLOSEC)]
+   ["int"  (token-INT)]
+   ["float"  (token-FLOAT)]
+   ["char"  (token-CHAR)]
+   ["double"  (token-DOUBLE)]
+   ["%i"  (token-FINT)]
+   ["%f"  (token-FFLOAT)]
+   ["%c"  (token-FCHAR)]
+   ["%d"  (token-FDOUBLE)]
+   ["void"  (token-VOID)]
+   ["printf" (token-PRINTF)]
+   ["scanf" (token-SCANF)]
+   [(:seq #\" (complement (:seq any-string #\" any-string)) #\")
+    (token-STRING (substring lexeme 1 (sub1 (string-length lexeme))))]
+   [(:: alphabetic (:* (:+ alphabetic numeric)))
+    (token-IDENTIFICADOR lexeme)]
+   [(:: numeric (:* numeric))
+    (token-NUMERO (string->number lexeme))]))
+
+(provide next-token value-tokens var-tokens format-tokens syntax-tokens)
+
+

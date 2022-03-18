@@ -1,0 +1,16 @@
+#lang prop-testv/plugin/c/main
+
+int variavel = 5;
+
+printf("Insira um nome");
+printf(4);
+printf(variavel);
+
+char nome;
+nome = "Loham";
+printf(nome);
+
+printf("Digite um numero: ");
+scanf(%d, numero);
+
+printf(numero);

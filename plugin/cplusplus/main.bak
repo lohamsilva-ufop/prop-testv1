@@ -1,0 +1,5 @@
+#lang racket
+
+(module reader racket
+  (require "../plugin/reader.rkt")
+  (provide read read-syntax))
