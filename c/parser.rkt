@@ -8,7 +8,7 @@
   (parser
    (start declaracoes)
    (end EOF)
-   (tokens value-tokens var-tokens format-tokens syntax-tokens)
+   (tokens value-tokens var-tokens syntax-tokens)
    (src-pos)
    (error
     (lambda (a b c d e)
@@ -21,6 +21,8 @@
      [(comandos declaracoes)(cons $1 $2)])
 
     (comandos [(PRINTF OPENP expressao CLOSEP PVIRGULA)(sprint $3)]
+              [(PRINTF OPENP texto VIRGULA variaveis CLOSEP PVIRGULA)(fprint $3 $5)]
+           
               [(SCANF OPENP IDENTIFICADOR CLOSEP PVIRGULA)(input (var $3))]
 
               [(INT IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $2) $4)]
@@ -36,16 +38,17 @@
               [(DOUBLE IDENTIFICADOR PVIRGULA)(assign-null (var $2))]
               
               [(IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $1) $3)])
+
+    (texto [(STRING)(value $1)])
+
+    (variaveis [(IDENTIFICADOR) (var $1)]
+               [(IDENTIFICADOR VIRGULA variaveis) (var $1)])
        
 
     (expressao [(NUMERO) (value $1)]
                [(IDENTIFICADOR) (var $1)]
                [(STRING) (value $1)])
 
-    (formato   [(FINT) (format $1)]
-               [(FCHAR)(format $1)]
-               [(FFLOAT)(format $1)]
-               [(FDOUBLE)(format $1)])
     )))
 
 (define (parse ip)

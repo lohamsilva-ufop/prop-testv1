@@ -4,6 +4,7 @@
 
 ;; capturar um valOR
 
+
 (define (read-value env v)
   (let ([x (read)])
       (hash-set env (var-id v) (value x))))
@@ -11,6 +12,27 @@
 
 
 
+
+
+(define (make-texto texto valor_variavel)
+
+  (if(string-contains? texto "%d")
+  (displayln (string-replace texto "%d" (number->string valor_variavel)))
+  "incorreto")
+
+  (if(string-contains? texto "%f")
+  (displayln(string-replace texto "%f" (number->string valor_variavel)))
+  "incorreto")
+
+  (if(string-contains? texto "%c")
+  (displayln(string-replace texto "%c" valor_variavel))
+  "incorreto")
+
+  )
+
+
+  
+  
 ;; looking up an environment
 ;; lookup-env : environment * var -> environment * value
 
@@ -71,7 +93,22 @@
 
     [(assign-null v) (eval-assign-null env (var-id v))]
       
-;mostrar dados
+;mostrar dados com formatação   
+    [(fprint e1 (var v))
+     (let* ([texto_recebido (eval-expr env e1)]
+           [texto (value-value (cdr texto_recebido))]
+            
+           
+           [variavel (eval-expr env v)]
+           [valor_variavel (value-value (cdr variavel))])
+
+           
+           (begin
+             (make-texto texto valor_variavel)
+          env))]
+
+    
+;mostra os dados sem formatação 
     [(sprint e1)
      (let ([v (eval-expr env e1)])
        (begin

@@ -1,17 +1,12 @@
 #lang prop-testv1/plugin/c/main
 
+printf("TEXTO FORMATADO x VARIAVEL");
 
-int variavel = 5;
-printf(variavel);
+int idade = 14;
+printf("A idade é: %d", idade);
 
-printf("Nome: ");
-char nome;
-nome = "Loham";
-printf(nome);
+float peso = 89.65;
+printf("O peso é: %f", peso);
 
-printf(4);
-
-printf("Digite um numero: ");
-scanf(numero);
-
-printf(numero);
+char nome = "Loham Santos da Silva";
+printf("O nome é: %c", nome);

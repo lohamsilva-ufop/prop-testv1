@@ -10,10 +10,6 @@
   (value)
   #:transparent)
 
-(struct format
-  (format)
-  #:transparent)
-
 (struct var
   (id)
   #:transparent)
@@ -30,6 +26,10 @@
 
 (struct sprint
   (expr)
+  #:transparent)
+
+(struct fprint
+  (texto var)
   #:transparent)
 
 

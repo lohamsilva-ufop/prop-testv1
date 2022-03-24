@@ -5,7 +5,6 @@
 
 (define-tokens value-tokens (NUMERO STRING))
 (define-tokens var-tokens (IDENTIFICADOR))
-(define-tokens format-tokens (FINT FFLOAT FDOUBLE FCHAR))
 (define-empty-tokens syntax-tokens
   (EOF
    ATRIBUIDOR
@@ -17,7 +16,6 @@
    CLOSEC
    OPENA
    CLOSEA
-   ASPAS
    INT
    FLOAT
    CHAR
@@ -42,10 +40,6 @@
    ["float"  (token-FLOAT)]
    ["char"  (token-CHAR)]
    ["double"  (token-DOUBLE)]
-   ["%i"  (token-FINT)]
-   ["%f"  (token-FFLOAT)]
-   ["%c"  (token-FCHAR)]
-   ["%d"  (token-FDOUBLE)]
    ["void"  (token-VOID)]
    ["printf" (token-PRINTF)]
    ["scanf" (token-SCANF)]
@@ -54,8 +48,10 @@
    [(:: alphabetic (:* (:+ alphabetic numeric)))
     (token-IDENTIFICADOR lexeme)]
    [(:: numeric (:* numeric))
+    (token-NUMERO (string->number lexeme))]
+  [(:: numeric (:* numeric) "." (:: numeric (:* numeric)))
     (token-NUMERO (string->number lexeme))]))
 
-(provide next-token value-tokens var-tokens format-tokens syntax-tokens)
+(provide next-token value-tokens var-tokens syntax-tokens)
 
 
