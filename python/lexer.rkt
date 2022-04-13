@@ -31,7 +31,7 @@
    ["}"  (token-CLOSEC)]
    ["print" (token-PRINT)]
    ["input()" (token-INPUT)]
-   [(:seq #\" (complement (:seq any-string #\" any-string)) #\")
+   [(:seq #\' (complement (:seq any-string #\' any-string)) #\')
     (token-STRING (substring lexeme 1 (sub1 (string-length lexeme))))]
    [(:: alphabetic (:* (:+ alphabetic numeric)))
     (token-IDENTIFICADOR lexeme)]

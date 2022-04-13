@@ -9,23 +9,14 @@
   (EOF
    ATRIBUIDOR
    VIRGULA
-   PVIRGULA
    OPENP
    CLOSEP
    OPENC
    CLOSEC
    OPENA
    CLOSEA
-   ASPAS
-   INT
-   FLOAT
-   CHAR
-   DOUBLE
-   VOID
-   COUT
-   CIN
-   SCOUT
-   SCIN))
+   PRINT
+   INPUT))
 
 (define next-token
   (lexer-src-pos
@@ -34,20 +25,12 @@
     (return-without-pos (next-token input-port))]
    ["=" (token-ATRIBUIDOR)]
    [","  (token-VIRGULA)]
-   [";" (token-PVIRGULA)]
    ["("  (token-OPENP)]
    [")"  (token-CLOSEP)]
    ["{"  (token-OPENC)]
    ["}"  (token-CLOSEC)]
-   ["<<" (token-SCOUT)]
-   [">>" (token-SCIN)]
-   ["int"  (token-INT)]
-   ["float"  (token-FLOAT)]
-   ["char"  (token-CHAR)]
-   ["double"  (token-DOUBLE)]
-   ["void"  (token-VOID)]
-   ["cout" (token-COUT)]
-   ["cin" (token-CIN)]
+   ["print" (token-PRINT)]
+   ["input()" (token-INPUT)]
    [(:seq #\" (complement (:seq any-string #\" any-string)) #\")
     (token-STRING (substring lexeme 1 (sub1 (string-length lexeme))))]
    [(:: alphabetic (:* (:+ alphabetic numeric)))

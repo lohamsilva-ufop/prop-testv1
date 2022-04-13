@@ -29,7 +29,7 @@
   #:transparent)
 
 (struct fprint
-  (texto var)
+  (lista_texto lista_variaveis)
   #:transparent)
 
 

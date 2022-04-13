@@ -28,6 +28,10 @@
   (expr)
   #:transparent)
 
+(struct fprint
+  (texto (list ))
+  #:transparent)
+
 
 (provide (all-defined-out))
 

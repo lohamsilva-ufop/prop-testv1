@@ -4,6 +4,28 @@
          "lexer.rkt"
          "c-syntax.rkt")
 
+(define (text texto)
+texto)
+
+(define (process s)
+  (let* ([s1 (proc (string->list s) '() '())])
+    (stringfy s1)))
+
+(define (stringfy s)
+  (map (lambda (p) (if (list? p)
+                       (list->string p)
+                       p)) s))
+
+(define (proc s cur ac)
+  (match s
+    ['() (reverse (cons (reverse cur) ac))]
+    [(cons #\% (cons c s1))
+     (match c
+       [#\d (proc s1 '() (cons 'd (cons (reverse cur) ac)))]
+       [_   (proc s1 (cons #\% (cons c cur)) ac)])]
+    [(cons c s1)
+     (proc s1 (cons c cur) ac)]))
+
 (define prop-testv1-parser
   (parser
    (start declaracoes)
@@ -21,7 +43,7 @@
      [(comandos declaracoes)(cons $1 $2)])
 
     (comandos [(PRINTF OPENP expressao CLOSEP PVIRGULA)(sprint $3)]
-              [(PRINTF OPENP texto VIRGULA variaveis CLOSEP PVIRGULA)(fprint $3 $5)]
+              [(PRINTF OPENP texto VIRGULA variaveis CLOSEP PVIRGULA)(fprint (process $3) $5)]
            
               [(SCANF OPENP IDENTIFICADOR CLOSEP PVIRGULA)(input (var $3))]
 
@@ -39,10 +61,10 @@
               
               [(IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $1) $3)])
 
-    (texto [(STRING)(value $1)])
+    (texto [(STRING)(text $1)])
 
-    (variaveis [(IDENTIFICADOR) (var $1)]
-               [(IDENTIFICADOR VIRGULA variaveis) (var $1)])
+    (variaveis [(IDENTIFICADOR) (list $1)]
+               [(IDENTIFICADOR VIRGULA variaveis) (cons $1 $3)])
        
 
     (expressao [(NUMERO) (value $1)]

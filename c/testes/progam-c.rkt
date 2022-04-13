@@ -1,12 +1,8 @@
-#lang prop-testv1/plugin/c/main
+#lang prop-testv1/c/debug/parser-only
 
-printf("TEXTO FORMATADO x VARIAVEL");
+int idade = 3;
+float peso = 5.0;
+char sexo = "F";
 
-int idade = 14;
-printf("A idade é: %d", idade);
 
-float peso = 89.65;
-printf("O peso é: %f", peso);
-
-char nome = "Loham Santos da Silva";
-printf("O nome é: %c", nome);
+printf("A idade é: %d e o peso é:   %d  e o sexo é: %d", idade, peso, sexo);

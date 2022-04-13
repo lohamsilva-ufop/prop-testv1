@@ -2,7 +2,7 @@
 
 (require parser-tools/yacc
          "lexer.rkt"
-         "syntax.rkt")
+         "python-syntax.rkt")
 
 (define prop-testv1-parser
   (parser
@@ -20,18 +20,11 @@
     (declaracoes [() '()]
      [(comandos declaracoes)(cons $1 $2)])
 
-    (comandos [(COUT SCOUT expressao PVIRGULA)(sprint $3)]
-              [(CIN SCIN IDENTIFICADOR PVIRGULA)(input (var $3))]
+    (comandos [(PRINT OPENP expressao CLOSEP)(sprint $3)]
+              [(PRINT OPENP expressao CLOSEP)(sprint $3)]
+              [(IDENTIFICADOR ATRIBUIDOR INPUT)(input (var $1))] 
+              [(IDENTIFICADOR ATRIBUIDOR expressao)(assign (var $1) $3)])
               
-              [(INT IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $2) $4)]
-              [(INT IDENTIFICADOR PVIRGULA)(assign-null (var $2))]
-              [(IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $1) $3)]
-
-              [(CHAR IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $2) $4)]
-              [(FLOAT IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $2) $4)]
-              [(DOUBLE IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $2) $4)]
-              [(IDENTIFICADOR ATRIBUIDOR expressao PVIRGULA)(assign (var $1) $3)])
-
     (expressao [(NUMERO) (value $1)]
                [(IDENTIFICADOR) (var $1)]
                [(STRING) (value $1)]))
@@ -41,5 +34,3 @@
   (prop-testv1-parser (lambda () (next-token ip))))
 
 (provide parse)
-
-

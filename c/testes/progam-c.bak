@@ -1,16 +1,6 @@
-#lang prop-testv/plugin/c/main
+#lang prop-testv1/plugin/c/main
 
-int variavel = 5;
+int idade;
+float peso;
 
-printf("Insira um nome");
-printf(4);
-printf(variavel);
-
-char nome;
-nome = "Loham";
-printf(nome);
-
-printf("Digite um numero: ");
-scanf(%d, numero);
-
-printf(numero);
+printf("A idade é: %d e o peso é:   %f", idade, peso);
