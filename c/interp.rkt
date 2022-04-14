@@ -2,11 +2,11 @@
 
 (require "c-syntax.rkt")
 
-
-
 (define (cria texto env)
    (match texto
-     [(var "idade")(display (cdr (lookup-env env texto)))]
+     [(var "idade")(display (value-value (cdr (eval-expr env texto))))]
+     [(var "peso")(display (value-value (cdr (eval-expr env texto))))]
+     [(var "sexo")(display (value-value (cdr (eval-expr env texto))))]
      [else  (display texto)]
    )
  )
@@ -14,8 +14,11 @@
 (define (montatexto texto)
   ;(car texto = tabela hash)
   ;(cdr texto = item da lista)
+  (if (equal? (cdr texto) '())
+  (display "")
+  (begin
   (cria (first (cdr texto)) (car texto))
-  (montatexto (cons (rest (cdr texto)) (car texto))))
+  (montatexto (cons  (car texto) (rest (cdr texto)))))))
 
   
 (define (merge l1 l2)
