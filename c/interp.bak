@@ -94,18 +94,29 @@
     [(assign-null v) (eval-assign-null env (var-id v))]
       
 ;mostrar dados com formatação   
-    [(fprint e1 (var v))
-     (let* ([texto_recebido (eval-expr env e1)]
-           [texto (value-value (cdr texto_recebido))]
+    [(fprint lista_texto lista_variaveis)
+     (
+
+
+
+      
+         env)]
+
+
+
+
+     
+     ;(let* ([texto_recebido (eval-expr env e1)]
+           ;[texto (value-value (cdr texto_recebido))]
             
            
-           [variavel (eval-expr env v)]
-           [valor_variavel (value-value (cdr variavel))])
+         ;  [variavel (eval-expr env v)]
+          ; [valor_variavel (value-value (cdr variavel))])
 
            
-           (begin
-             (make-texto texto valor_variavel)
-          env))]
+          ; (begin
+            ; (make-texto texto valor_variavel)
+          
 
     
 ;mostra os dados sem formatação 

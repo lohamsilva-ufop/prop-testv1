@@ -63,8 +63,8 @@ texto)
 
     (texto [(STRING)(text $1)])
 
-    (variaveis [(IDENTIFICADOR) (list $1)]
-               [(IDENTIFICADOR VIRGULA variaveis) (cons $1 $3)])
+    (variaveis [(IDENTIFICADOR) (list (var $1))]
+               [(IDENTIFICADOR VIRGULA variaveis) (cons (var $1) $3)])
        
 
     (expressao [(NUMERO) (value $1)]

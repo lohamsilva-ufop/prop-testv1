@@ -1,4 +1,4 @@
-#lang prop-testv1/c/debug/parser-only
+#lang prop-testv1/plugin/c/main
 
 int idade = 3;
 float peso = 5.0;

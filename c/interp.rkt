@@ -2,36 +2,33 @@
 
 (require "c-syntax.rkt")
 
-;; capturar um valOR
 
 
-(define (read-value env v)
-  (let ([x (read)])
-      (hash-set env (var-id v) (value x))))
+(define (cria texto env)
+   (match texto
+     [(var "idade")(display (cdr (lookup-env env texto)))]
+     [else  (display texto)]
+   )
+ )
 
-
-
-
-
-
-(define (make-texto texto valor_variavel)
-
-  (if(string-contains? texto "%d")
-  (displayln (string-replace texto "%d" (number->string valor_variavel)))
-  "incorreto")
-
-  (if(string-contains? texto "%f")
-  (displayln(string-replace texto "%f" (number->string valor_variavel)))
-  "incorreto")
-
-  (if(string-contains? texto "%c")
-  (displayln(string-replace texto "%c" valor_variavel))
-  "incorreto")
-
-  )
-
+(define (montatexto texto)
+  ;(car texto = tabela hash)
+  ;(cdr texto = item da lista)
+  (cria (first (cdr texto)) (car texto))
+  (montatexto (cons (rest (cdr texto)) (car texto))))
 
   
+(define (merge l1 l2)
+   (match l1
+     ['() empty]
+     [(cons 'd t) (cons (car l2) (merge t (rest l2)))]
+     [(cons h t) (cons h (merge t l2))]))
+
+
+;; capturar um valOR
+(define (read-value env v)
+  (let ([x (read)])
+      (hash-set env (var-id v) (value x)))) 
   
 ;; looking up an environment
 ;; lookup-env : environment * var -> environment * value
@@ -95,25 +92,14 @@
       
 ;mostrar dados com formatação   
     [(fprint lista_texto lista_variaveis)
-     (
-
-
-
-      
-         env)]
-
-
-
-
+      (let* ([v (merge lista_texto lista_variaveis)]
+             [texto (montatexto (cons env v))])
+             (displayln texto))]
      
      ;(let* ([texto_recebido (eval-expr env e1)]
            ;[texto (value-value (cdr texto_recebido))]
-            
-           
          ;  [variavel (eval-expr env v)]
           ; [valor_variavel (value-value (cdr variavel))])
-
-           
           ; (begin
             ; (make-texto texto valor_variavel)
           
