@@ -2,6 +2,10 @@
 
 ;; expression syntax
 
+(struct input
+  (id)
+  #:transparent)
+
 (struct value
   (value)
   #:transparent)
@@ -26,26 +30,6 @@
 
 (struct fprint
   (lista_texto lista_variaveis)
-  #:transparent)
-
-(struct input
-  (id declaracao)
-  #:transparent)
-
-(struct input_declaracao
-  (expr)
-  #:transparent)
-
-(struct menor
-  (left right)
-  #:transparent)
-
-(struct maior
-  (left right)
-  #:transparent)
-
-(struct igual
-  (left right)
   #:transparent)
 
 

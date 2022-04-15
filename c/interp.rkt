@@ -2,36 +2,15 @@
 
 (require "c-syntax.rkt")
 
-(define (cria texto env)
-   (match texto
-     [(var "idade")(display (value-value (cdr (eval-expr env texto))))]
-     [(var "idade")(display (value-value (cdr (eval-expr env texto))))]
-     [(var "peso")(display (value-value (cdr (eval-expr env texto))))]
-     [(var "sexo")(display (value-value (cdr (eval-expr env texto))))]
-     [(var "x")(display (value-value (cdr (eval-expr env texto))))]
-     [(var "profissao")(display (value-value (cdr (eval-expr env texto))))]
-     [else  (display texto)]
-   )
- )
+(define writeOutput display)
 
-(define (montatexto texto)
-  ;(car texto = tabela hash)
-  ;(cdr texto = item da lista)
-  (if (equal? (cdr texto) '())
-  (display "")
-  (begin
-  (cria (first (cdr texto)) (car texto))
-  (montatexto (cons  (car texto) (rest (cdr texto)))))))
-
-  
-(define (merge l1 l2)
+(define (merge l1 l2 env)
    (match l1
      ['() empty]
-     [(cons 'd t) (cons (car l2) (merge t (rest l2)))]
-     [(cons 'c t) (cons (car l2) (merge t (rest l2)))]
-     [(cons 'f t) (cons (car l2) (merge t (rest l2)))]
-     [(cons h t) (cons h (merge t l2))]))
-
+     [(cons 'd t) (cons (value-value (cdr (eval-expr env (car l2)))) (merge t (rest l2) env))]
+     [(cons 'c t) (cons (value-value (cdr (eval-expr env (car l2)))) (merge t (rest l2) env))]
+     [(cons 'f t) (cons (value-value (cdr (eval-expr env (car l2)))) (merge t (rest l2) env))]
+     [(cons h t) (cons h (merge t l2 env))]))
 
 ;; capturar um valOR
 (define (read-value env v)
@@ -99,18 +78,8 @@
       
 ;mostrar dados com formatação   
     [(fprint lista_texto lista_variaveis)
-      (let* ([v (merge lista_texto lista_variaveis)]
-             [texto (montatexto (cons env v))])
-             (displayln texto))]
-     
-     ;(let* ([texto_recebido (eval-expr env e1)]
-           ;[texto (value-value (cdr texto_recebido))]
-         ;  [variavel (eval-expr env v)]
-          ; [valor_variavel (value-value (cdr variavel))])
-          ; (begin
-            ; (make-texto texto valor_variavel)
-          
-
+      (let* ([v (merge lista_texto lista_variaveis env)])
+             (map writeOutput v))]
     
 ;mostra os dados sem formatação 
     [(sprint e1)

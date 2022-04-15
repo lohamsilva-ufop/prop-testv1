@@ -7,4 +7,4 @@ char sexo = "M";
 char profissao = "professor";
 
 
-printf("Meu nome é %c e          tenho %d anos. Sou do sexo %c         e peso %f. Minha profissão é %c .", x, idade, sexo, peso, profissao);
+printf("Meu nome é %c e          tenho %d anos. Sou do sexo %c e peso     %f. Minha profissão é %c .", x, idade, sexo, peso, profissao);
