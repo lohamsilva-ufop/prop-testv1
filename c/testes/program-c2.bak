@@ -1,0 +1,3 @@
+#lang prop-testv1/plugin/c/main
+
+input n;

@@ -10,21 +10,12 @@
    ATRIBUIDOR
    VIRGULA
    PVIRGULA
-   OPENP
-   CLOSEP
-   OPENC
-   CLOSEC
-   OPENA
-   CLOSEA
    OPENCH
    CLOSECH
    INT
    FLOAT
    CHAR
    DOUBLE
-   VOID
-   PRINTF
-   SCANF
    INPUT
    MENOR
    MAIOR
@@ -38,22 +29,15 @@
    ["=" (token-ATRIBUIDOR)]
    [","  (token-VIRGULA)]
    [";" (token-PVIRGULA)]
-   ["("  (token-OPENP)]
-   [")"  (token-CLOSEP)]
-   ["{"  (token-OPENC)]
-   ["}"  (token-CLOSEC)]
    ["["  (token-OPENCH)]
    ["]"  (token-CLOSECH)]
-   ["<"  (token-MAIOR)]
-   [">"  (token-MENOR)]
+   ["<"  (token-MENOR)]
+   [">"  (token-MAIOR)]
    ["=="  (token-IGUAL)]
    ["int"  (token-INT)]
    ["float"  (token-FLOAT)]
    ["char"  (token-CHAR)]
    ["double"  (token-DOUBLE)]
-   ["void"  (token-VOID)]
-   ["printf" (token-PRINTF)]
-   ["scanf" (token-SCANF)]
    ["input" (token-INPUT)]
    [(:seq #\" (complement (:seq any-string #\" any-string)) #\")
     (token-STRING (substring lexeme 1 (sub1 (string-length lexeme))))]

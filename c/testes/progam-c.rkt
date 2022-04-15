@@ -1,8 +1,10 @@
 #lang prop-testv1/plugin/c/main
 
-int idade = 3;
-float peso = 5.0;
-char sexo = "F";
+int idade = 27;
+char x = "Loham Santos da Silva";
+float peso = 83.0;
+char sexo = "M";
+char profissao = "professor";
 
 
-printf("A idade é: %d e o peso é:   %d  e o sexo é: %d", idade, peso, sexo);
+printf("Meu nome é %c e          tenho %d anos. Sou do sexo %c         e peso %f. Minha profissão é %c .", x, idade, sexo, peso, profissao);

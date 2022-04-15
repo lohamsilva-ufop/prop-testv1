@@ -20,14 +20,6 @@
    (var)
   #:transparent)
 
-(struct sprint
-  (expr)
-  #:transparent)
-
-(struct fprint
-  (lista_texto lista_variaveis)
-  #:transparent)
-
 (struct input
   (id declaracao)
   #:transparent)

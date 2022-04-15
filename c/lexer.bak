@@ -16,16 +16,14 @@
    CLOSEC
    OPENA
    CLOSEA
-   ASPAS
    INT
    FLOAT
    CHAR
    DOUBLE
    VOID
-   COUT
-   CIN
-   SCOUT
-   SCIN))
+   PRINTF
+   SCANF
+   INPUT))
 
 (define next-token
   (lexer-src-pos
@@ -39,20 +37,20 @@
    [")"  (token-CLOSEP)]
    ["{"  (token-OPENC)]
    ["}"  (token-CLOSEC)]
-   ["<<" (token-SCOUT)]
-   [">>" (token-SCIN)]
    ["int"  (token-INT)]
    ["float"  (token-FLOAT)]
    ["char"  (token-CHAR)]
    ["double"  (token-DOUBLE)]
    ["void"  (token-VOID)]
-   ["cout" (token-COUT)]
-   ["cin" (token-CIN)]
+   ["printf" (token-PRINTF)]
+   ["scanf" (token-SCANF)]
    [(:seq #\" (complement (:seq any-string #\" any-string)) #\")
     (token-STRING (substring lexeme 1 (sub1 (string-length lexeme))))]
    [(:: alphabetic (:* (:+ alphabetic numeric)))
     (token-IDENTIFICADOR lexeme)]
    [(:: numeric (:* numeric))
+    (token-NUMERO (string->number lexeme))]
+  [(:: numeric (:* numeric) "." (:: numeric (:* numeric)))
     (token-NUMERO (string->number lexeme))]))
 
 (provide next-token value-tokens var-tokens syntax-tokens)
