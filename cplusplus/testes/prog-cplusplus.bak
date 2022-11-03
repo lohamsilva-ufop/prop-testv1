@@ -1,3 +1,17 @@
-#lang racket
+#lang prop-testv1/plugin/cplusplus/debug/parser-only
+int i;
+i = 4;
+int u = 5;
 
-(define i 5)
+
+cout << u;
+cout << "Hello World";
+cout << "Entre com um valor: ";
+
+cin >> j;
+cout << j;
+
+
+
+
+
